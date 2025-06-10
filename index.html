@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BLACKLISTED – We Solve Your Problems</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600..900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ======= CORE VARIABLES ======= */
+:root{
+  --bg:#000;
+  --txt:#d8d8d8;
+  --accent:#ff003c;
+  --dim:#6b001c;
+  --card:#0d0d0d;
+}
+/* ======= RESET & BASICS ======= */
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* *** HERE’S THE ONLY EDIT – new wallpaper layer *** */
+body{
+  font-family:"Roboto Mono",monospace;
+  background:
+    linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)), /* dims photo to ~30 % */
+    url("https://t3.ftcdn.net/jpg/02/90/08/14/360_F_290081471_hHyGV1wn8KHMVyJsrU16Dg7UKCOE20ha.jpg")
+      center/cover fixed no-repeat,
+    var(--bg); /* fallback base */
+  color:var(--txt);
+  line-height:1.45;scroll-behavior:smooth;
+  overflow-x:hidden;position:relative;
+}
+/* ======= BLOOD & STATIC OVERLAYS ======= */
+body::before,body::after,.flash{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;
+  z-index:999;
+}
+body::before{ /* red film grain */
+  background:url("https://www.transparenttextures.com/patterns/noise.png") repeat;
+  mix-blend-mode:screen;opacity:.08;animation:noise .28s steps(12) infinite;
+}
+body::after{ /* blood splatter */
+  background:url("") center/cover no-repeat;
+  opacity:.12;mix-blend-mode:screen;animation:pulse 7s infinite;
+}
+.flash{background:#ff0000;opacity:0;}
+
+@keyframes noise{0%{transform:translate(0,0)}100%{transform:translate(-5%,3%)}}
+@keyframes pulse{0%,100%{opacity:.10}50%{opacity:.18}}
+@keyframes strobe{0%{opacity:.15}100%{opacity:0}}
+
+/* ======= SECTION LAYOUT ======= */
+header,section{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:5rem 1.2rem;
+}
+h1,h2{font-family:"Orbitron",sans-serif;text-align:center}
+h1{
+  font-size:clamp(3rem,9vw,6.5rem);letter-spacing:.05em;
+  position:relative;color:var(--txt);
+  filter:drop-shadow(0 0 7px var(--accent));
+}
+h1::before,h1::after{
+  content:attr(data-text);position:absolute;left:0;top:0;overflow:hidden;
+  clip:rect(0,900px,0,0);
+}
+h1::before{animation:glitchTop 2s infinite linear alternate-reverse;color:var(--accent)}
+h1::after {animation:glitchBot 2s infinite linear alternate-reverse;color:var(--accent)}
+
+@keyframes glitchTop{
+  0%{clip:rect(0,9999px,0,0);transform:translate(0)}
+  30%{clip:rect(0,9999px,8px,0);transform:translate(6px,-3px)}
+  60%{clip:rect(0,9999px,4px,0);transform:translate(-5px,4px)}
+  100%{clip:rect(0,9999px,2px,0);transform:translate(4px,-5px)}
+}
+@keyframes glitchBot{
+  0%{clip:rect(0,9999px,0,0);transform:translate(0)}
+  30%{clip:rect(12px,9999px,95px,0);transform:translate(-6px,5px)}
+  60%{clip:rect(6px,9999px,75px,0);transform:translate(6px,-4px)}
+  100%{clip:rect(18px,9999px,45px,0);transform:translate(-4px,6px)}
+}
+
+/* ======= HERO TERMINAL ======= */
+#terminal{
+  margin-top:2.2rem;font-size:1rem;white-space:nowrap;
+  border-right:3px solid var(--accent);overflow:hidden;
+  animation:blink .9s infinite;
+}
+@keyframes blink{50%{border-color:transparent}}
+
+/* ======= BUTTON ======= */
+button{
+  margin-top:4.5rem;padding:1rem 3.2rem;font-family:"Orbitron",sans-serif;
+  background:transparent;border:2px solid var(--accent);color:var(--accent);
+  cursor:pointer;letter-spacing:1px;transition:.25s;position:relative;
+}
+button:hover{
+  background:var(--accent);color:var(--bg);
+  box-shadow:0 0 14px var(--accent);
+}
+
+/* ======= SERVICES CARDS ======= */
+#services{background:#050505;text-align:center}
+#services h2,#stats h2,#victims h2{
+  font-size:2.3rem;margin-bottom:2.6rem;color:var(--accent);
+  text-shadow:0 0 9px var(--dim);
+}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;max-width:1100px;margin:0 auto}
+.card{
+  background:var(--card);padding:2rem;border:1px solid #111;border-radius:8px;
+  transition:.3s;position:relative;overflow:hidden;
+}
+.card:hover{transform:translateY(-8px);box-shadow:0 0 18px var(--accent)}
+.card::before{
+  content:"";position:absolute;inset:-150% -150% 0 -150%;
+  background:radial-gradient(circle at center,var(--accent) 0%,transparent 60%);
+  opacity:0;transition:.4s;mix-blend-mode:overlay;filter:blur(45px);
+}
+.card:hover::before{opacity:.18}
+.card h3{font-size:1.35rem;margin-bottom:1rem}
+.price{color:var(--accent);font-weight:700;margin:.55rem 0}
+.success{font-size:.9rem;opacity:.8}
+
+/* ======= STATS ======= */
+#stats{background:#000;text-align:center}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;max-width:850px;margin:2.5rem auto 0}
+.stat{font-size:1.6rem;position:relative}
+.stat .num{display:inline-block;min-width:95px;color:var(--accent);text-shadow:0 0 6px var(--dim)}
+
+/* ======= VICTIMS GRID ======= */
+#victims{background:#020202;text-align:center}
+.victim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;max-width:960px;margin:0 auto}
+.victim{background:var(--card);border:1px solid #111;border-radius:6px;overflow:hidden;transition:.3s;position:relative}
+.victim:hover{transform:translateY(-7px)}
+.victim img{width:100%;height:260px;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+.victim h3{position:absolute;bottom:3.4rem;left:0;right:0;background:rgba(0,0,0,.75);padding:.35rem 0;font-size:1rem}
+.victim p{position:absolute;bottom:0;left:0;right:0;background:var(--accent);color:var(--bg);padding:.4rem 0;font-size:.78rem;letter-spacing:1px}
+
+/* ======= SHAKE ON SCROLL ======= */
+.shake{animation:shake .25s linear both}
+@keyframes shake{
+  0%{transform:translate(0)}20%{transform:translate(-3px,3px)}
+  40%{transform:translate(3px,-3px)}60%{transform:translate(-3px,3px)}
+  80%{transform:translate(3px,-3px)}100%{transform:translate(0)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO: Heartbeat + static radio (low volume) -->
+<audio src="https://files.catbox.moe/0swqni.mp3" autoplay loop></audio>
+
+<!-- RANDOM BLOOD FLASHES -->
+<div class="flash" id="flash"></div>
+
+<!-- ===== HERO ===== -->
+<header>
+  <h1 data-text="WE SOLVE YOUR PROBLEMS.">WE SOLVE YOUR PROBLEMS.</h1>
+  <button id="enter">ENTER NETWORK</button>
+  <div id="terminal"></div>
+</header>
+
+<!-- ===== CONTRACT METHODS ===== -->
+<section id="services">
+  <h2>Contract&nbsp;Methods</h2>
+  <div class="cards">
+    <div class="card"><h3>Drive-By Solution</h3><p class="price">≈&nbsp;0.77&nbsp;BTC</p><p class="success">Success Rate&nbsp;97%</p></div>
+    <div class="card"><h3>Silent Sniper</h3><p class="price">≈&nbsp;1.32&nbsp;BTC</p><p class="success">Success Rate&nbsp;99%</p></div>
+    <div class="card"><h3>Accident Staging</h3><p class="price">≈&nbsp;0.95&nbsp;BTC</p><p class="success">Success Rate&nbsp;95%</p></div>
+    <div class="card"><h3>Permanent Disappearance</h3><p class="price">≈&nbsp;2.50&nbsp;BTC</p><p class="success">Success Rate&nbsp;92%</p></div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section id="stats">
+  <h2>Operational&nbsp;Statistics</h2>
+  <div class="stat-grid">
+    <div class="stat"><span class="num" data-target="486">0</span><br>Total&nbsp;Contracts</div>
+    <div class="stat"><span class="num" data-target="98.7">0</span>%<br>Overall&nbsp;Success</div>
+    <div class="stat"><span class="num" data-target="14">0</span><br>Years&nbsp;Off-Grid</div>
+    <div class="stat"><span class="num" data-target="0">0</span><br>Loose&nbsp;Ends</div>
+  </div>
+</section>
+
+<!-- ===== VICTIMS ===== -->
+<section id="victims">
+  <h2>Our&nbsp;Victims</h2>
+  <div class="victim-grid">
+
+    <div class="victim">
+      <img referrerpolicy="no-referrer"
+           src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Osama_bin_Laden_portrait.jpg"
+           alt="Osama bin Laden">
+      <h3>Osama bin Laden</h3><p>EXECUTED</p>
+    </div>
+
+    <div class="victim">
+      <img referrerpolicy="no-referrer"
+           src="https://www.thefamouspeople.com/profiles/images/pablo-escobar-1.jpg"
+           alt="Pablo Escobar">
+      <h3>Pablo Escobar</h3><p>EXECUTED</p>
+    </div>
+
+    <div class="victim">
+      <img referrerpolicy="no-referrer"
+           src="https://ichef.bbci.co.uk/news/1024/media/images/51297000/jpg/_51297797_51297796.jpg"
+           alt="Muammar Gaddafi">
+      <h3>Muammar Gaddafi</h3><p>EXECUTED</p>
+    </div>
+
+    <div class="victim">
+      <img referrerpolicy="no-referrer"
+           src="https://th.bing.com/th/id/R.78cbb528434a20abcb491258164abf95?rik=xdXN8ZOcyTUcTA&pid=ImgRaw&r=0"
+           alt="Ayman al-Zawahiri">
+      <h3>Ayman al-Zawahiri</h3><p>EXECUTED</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+/* ===== TYPEWRITER ===== */
+const lines=[
+  '> Loading...',
+  '> CONTACT OVER ...',
+  '> TITAN & AJ '
+];
+let li=0,ch=0,term=document.getElementById('terminal');
+function type(){
+  if(li<lines.length){
+    term.textContent=lines[li].slice(0,++ch);
+    if(ch===lines[li].length){li++;ch=0;setTimeout(type,800);}
+    else setTimeout(type,38);
+  }
+}
+type();
+
+/* ===== ENTER BUTTON ===== */
+document.getElementById('enter').onclick=()=>document.getElementById('services').scrollIntoView({behavior:'smooth'});
+
+/* ===== COUNT-UP STATS ===== */
+const nums=document.querySelectorAll('.num');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      nums.forEach(n=>{
+        const target=+n.dataset.target,dur=2200,frame=35;
+        let cur=0,inc=target/(dur/frame);
+        const up=setInterval(()=>{
+          cur+=inc;n.textContent=(target>99?Math.floor(cur):cur.toFixed(1));
+          if(cur>=target){n.textContent=target;clearInterval(up);}
+        },frame);
+      });obs.disconnect();
+    }
+  });
+});
+obs.observe(document.getElementById('stats'));
+
+/* ===== SHAKE & RANDOM BLOOD FLASH ===== */
+let tick=false,flash=document.getElementById('flash');
+window.addEventListener('scroll',()=>{
+  if(!tick){
+    document.body.classList.add('shake');
+    tick=true;
+    setTimeout(()=>{document.body.classList.remove('shake');tick=false},260);
+  }
+});
+setInterval(()=>{flash.style.animation="strobe .12s";setTimeout(()=>flash.style.animation="none",120)},Math.random()*6000+4000);
+</script>
+</body>
+</html>
